@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast';
 
 export const WishlistContext=createContext()
 function WishlistProvider({children}) {
@@ -11,10 +12,12 @@ function WishlistProvider({children}) {
     function handleAddWishlist(item) {
         const wishlistProduct=wishlist.find((x)=>x._id===item._id)
         if (wishlistProduct) {
-            setWishlist(wishlist.filter((x)=>x._id !== item._id))
+            handleDelete(item._id)
+            toast.error("Deleted Wishlist")
         }
         else{
             setWishlist([...wishlist, item])
+            toast.success('Send Wishlist')
 
         }
     }
